@@ -1,10 +1,13 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace _02_csharp_primeros_pasos.Models
 {
     public enum gender {
         FEMENINO, MASCULINO
     }
+
+    [Table("users")]
     public class User
     {
         public int Id { get; set; }
@@ -32,6 +35,10 @@ namespace _02_csharp_primeros_pasos.Models
 
         [Required]
         public int RoleId { get; set; }
+
+
+        // Controlada por EFCore
+        public Role Role { get; set; }
 
     }
 }
