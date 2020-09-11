@@ -15,7 +15,17 @@ CREATE TABLE permissions (
 CREATE TABLE roles_has_permissions (
   role_id INTEGER NOT NULL,
   permission_id INTEGER NOT NULL,
-  PRIMARY KEY (role_id, permission_id)
+  PRIMARY KEY (role_id, permission_id),
+  CONSTRAINT fk_rhp_roles
+    FOREIGN KEY (role_id)
+    REFERENCES roles(id)
+      ON UPDATE CASCADE
+      ON DELETE RESTRICT,
+  CONSTRAINT fk_rhp_permissions
+    FOREIGN KEY (permission_id)
+    REFERENCES permissions(id)
+      ON UPDATE CASCADE
+      ON DELETE RESTRICT
 );
 
 CREATE TABLE users (
@@ -27,5 +37,10 @@ CREATE TABLE users (
   email VARCHAR(200) NOT NULL UNIQUE,
   remember_token VARCHAR(200) DEFAULT NULL,
   gender INTEGER NOT NULL,
-  role_id INTEGER NOT NULL
+  role_id INTEGER NOT NULL,
+  CONSTRAINT fk_users_roles
+    FOREIGN KEY (role_id)
+    REFERENCES roles(id)
+      ON UPDATE CASCADE
+      ON DELETE RESTRICT
 );
